@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <h1>글자를 세어보아요</h1>
+    <!-- 템플릿 태그를 사용해서 링크를 걸었다. url 이름으로.  -->
+    <a href="{% url 'about' %}">ABOUT</a>
+    <!-- action 으로 result 페이지로 보내준다.  -->
+    <form action="{% url 'result' %}">
+        <!-- 넓은 텍스트 입력창, 가로세로 지정  -->
+        <textarea cols="40" rows="10" name="fulltext"></textarea>
+        <br>
+        <!-- 제출 버튼 만들기 (value는 버튼 안에 들어갈 글씨) -->
+        <input type="submit" value="Count!"></iput>
+    </form>
+</body>
+</html>

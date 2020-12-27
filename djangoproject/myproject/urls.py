@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 # views 파일 불러오기
-import myapp.views
+import wordcount.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # views 안에 있는 home 함수 실행시키기 
-    path('', myapp.views.home, name='home'),
+    # wordcount 안에, views 안에 있는 함수 실행. 
+    path('', wordcount.views.home, name="home"),
+    path('about/', wordcount.views.about, name="about"),
+    path('result/', wordcount.views.result, name="result"),
 ]
