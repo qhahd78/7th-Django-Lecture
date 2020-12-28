@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 쿼리셋.메소드 쿼리셋 안에 있는 모든
+    객체를 가져와라 라는 뜻 -->
+    <!-- 내가 쓴 블로그 글들(객체)이 모두 blog.all 에 담김. 
+    for문으로 객체를 하나하나씩 순회함. 순회하면서 
+    blog 안에 하나씩 객체가 담김. 한 번 돌 때마다 
+    blog 안에는 내가 쓴 블로그 글 하나가 담긴다. 
+    그 글의 title, pub_date, body 를 담아 출력해준다.  -->
+
+    {% for blog in blogs.all%}
+        <h1> {{blog.title}}</h1>
+        <p> {{blog.pub_date}}</p>
+        <p>{{blog.body}}</p>
+        <br><br>
+    {% endfor%}
+</body>
+</html>
