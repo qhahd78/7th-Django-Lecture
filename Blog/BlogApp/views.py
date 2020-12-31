@@ -1,12 +1,17 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.utils import timezone
 from .models import Blog
 # Create your views here.
+
+
+def portpolio(request):
+    return render(request, 'portpolio.html')
 
 
 def home(request):
     # 클래스 Blog 안에 있는 객체를 blogs 라는 변수에 저장.
     # 모델로부터 객체 목록을 전달 받을 수 있다.
-    blogs = Blog.objects  # 쿼리셋 #메소드
+    blogs = Blog.objects.all()  # 쿼리셋 #메소드
     # key 값 blogs 로 Blog의 객체를 받아 딕셔너리로 저장
     return render(request, 'home.html', {'blogs': blogs})
 
@@ -25,3 +30,27 @@ def detail(request, blog_id):
     # .count: 객체 개수 반환
     # .first: 첫번째 객체 반환
     # .last: 마지막 객체 반환
+
+# new.html 을 단순히 띄워주는 함수
+
+
+def new(request):
+    return render(request, 'new.html')
+
+# 입력 받은 내용을 DB에 전달하는 함수
+
+
+def create(request):
+    # Blog 라는 클래스에 있는 객체를 받아 blog라는 변수에 저장.
+    blog = Blog()
+    # html 에서 입력 받은 title 값을 blog 라는 객체의 title 안에 담아줌.
+    blog.title = request.GET['title']
+    blog.body = request.GET['body']
+    # 쓴 시간을 blog 객체의 pub_date 변수에 저장.
+    blog.pub_date = timezone.datetime.now()
+    # blog(객체)에 여태 담은 내용들을 객체에 저장 객체.detete() 이런건 지워라.
+    blog.save()
+    # 데이터 처리 후에 redirect 에서 정한 경로로 곧장 이동한다.
+    return redirect('/blog/'+str(blog.id))
+
+    # redirect는 외부 링크도 가능. render 는 사이트 내의 링크로만 이동.

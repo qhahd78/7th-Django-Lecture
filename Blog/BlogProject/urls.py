@@ -16,9 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 import BlogApp.views
+import Portpolio.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', BlogApp.views.home, name="home"),
     path('blog/<int:blog_id>', BlogApp.views.detail, name="detail"),
+    path('blog/new', BlogApp.views.new, name="new"),
+    # create 함수를 실행시키기 위해 url 추가.
+    path('blog/create', BlogApp.views.create, name="create"),
+    path('blog/portpolio', Portpolio.views.portpolio, name="portpolio"),
 ]

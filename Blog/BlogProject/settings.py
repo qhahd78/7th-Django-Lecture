@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'BlogApp.apps.BlogappConfig',
+    'Portpolio.apps.PortpolioConfig',
 ]
 
 MIDDLEWARE = [
@@ -119,3 +120,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# 스태틱 파일들이 어디로 모일 것인지를 쓴다.
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# 스태틱 파일들이 어디에 있는지 적음
+# 포트폴리오 안에, 스태틱 안에 있다.
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'Portpolio', 'static')
+]
