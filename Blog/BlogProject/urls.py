@@ -18,6 +18,10 @@ from django.urls import path
 import BlogApp.views
 import Portpolio.views
 
+# 미디어 쓰기 위함. 외우기
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', BlogApp.views.home, name="home"),
@@ -26,4 +30,4 @@ urlpatterns = [
     # create 함수를 실행시키기 위해 url 추가.
     path('blog/create', BlogApp.views.create, name="create"),
     path('blog/portpolio', Portpolio.views.portpolio, name="portpolio"),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

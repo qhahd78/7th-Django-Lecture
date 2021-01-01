@@ -1,7 +1,8 @@
 from django.shortcuts import render
-
+from .models import Portpolio
 # Create your views here.
 
 
 def portpolio(request):
-    return render(request, 'portpolio.html')
+    portpolios = Portpolio.objects
+    return render(request, 'portpolio.html', {'portpolios': portpolios})
