@@ -10,7 +10,9 @@
     blog 안에 하나씩 객체가 담김. 한 번 돌 때마다 
     blog 안에는 내가 쓴 블로그 글 하나가 담긴다. 
     그 글의 title, pub_date, body 를 담아 출력해준다.  -->
-    {% for blog in blogs.all%}
+    
+    <!-- 하나의 페이지를 for 문 돌림.  -->
+    {% for blog in posts%}
     <div class="card" style="width: 500px; margin-top: 15px; margin-left: 15px;"> 
         <div class="card-body">
           <h5 class="card-title"{{blog.title}}</h5>
@@ -21,6 +23,31 @@
     </div>
     {% endfor%}
     
+    <nav>
+      <ul>
+        <!-- 만약 포스트가 이전 페이지가 있다면. -->
+
+        {% if posts.has_previous %}
+        
+          <!-- 1 페이지가 링크에 걸림 -->
+        <a href="?page=1">First</a>
+          <!-- 지금 페이지의 그 전 페이지 가 링크에 걸림.  -->
+        <a href="?page={{posts.previous_page_number}}">Previous</a>
+        {% endif %}
+        
+          <span>{{posts.number}}</span>
+          <span>of</span>
+          <span>{{posts.paginator.num_pages}}</span>
+        <!-- 만약 다음 페이지가 있다면  -->
+        {% if posts.has_nest %}
+        
+          <!-- 다음 페이지로 링크가 걸려있다.  -->
+        <a href="?page={{posts.next_page_number}}">Next</a>
+          <!-- 전체 페이지 수(num_pages)=전체 페이지. 마지막 페이지로 가는 링크가 걸려있다.  -->
+        <a href="?page={{posts.paginator.num_pages}}">Last</a>
+        {% endif %}
+      </ul>
+    </nav>
 </body>
 </html>
 

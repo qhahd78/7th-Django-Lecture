@@ -14,9 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 import BlogApp.views
 import Portpolio.views
+import accounts.views
 
 # 미디어 쓰기 위함. 외우기
 from django.conf import settings
@@ -25,9 +26,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', BlogApp.views.home, name="home"),
-    path('blog/<int:blog_id>', BlogApp.views.detail, name="detail"),
-    path('blog/new', BlogApp.views.new, name="new"),
-    # create 함수를 실행시키기 위해 url 추가.
-    path('blog/create', BlogApp.views.create, name="create"),
-    path('blog/portpolio', Portpolio.views.portpolio, name="portpolio"),
+    path('blog/', include('BlogApp.urls')),
+    path('blog/', include('Portpolio.urls')),
+    path('accounts/', include('accounts.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
+from django.core.paginator import Paginator
 from .models import Blog
 # Create your views here.
 
@@ -11,9 +12,19 @@ def portpolio(request):
 def home(request):
     # 클래스 Blog 안에 있는 객체를 blogs 라는 변수에 저장.
     # 모델로부터 객체 목록을 전달 받을 수 있다.
-    blogs = Blog.objects.all()  # 쿼리셋 #메소드
+
+    # 블로그의 모든 글이 대상
+    blogs = Blog.objects  # 쿼리셋 #메소드
     # key 값 blogs 로 Blog의 객체를 받아 딕셔너리로 저장
-    return render(request, 'home.html', {'blogs': blogs})
+    blog_list = Blog.objects.all()
+    # 블로그 객체 세 개를 한 페이지로 자른다.
+    paginator = Paginator(blog_list, 3)
+    # request 된 페이지가 뭔지 알아내고
+    page = request.GET.get('page')
+    # reqeust 된 페이지를 얻어온 뒤 return 한다. post에는 리퀘스트된 페이지에
+    # 해당하는 번호가 들어간다.
+    posts = paginator.get_page(page)
+    return render(request, 'home.html', {'blogs': blogs, 'posts': posts})
 
 
 def detail(request, blog_id):
